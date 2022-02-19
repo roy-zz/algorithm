@@ -47,7 +47,7 @@ public class FindCharacter {
 
     @Test
     @DisplayName("문자 찾기")
-    void main() {
+    public void main() {
         int answer1 = solution1("Computercooler", 'c');
         assertEquals(2, answer1);
         int answer2 = solution2("Computercooler", 'c');
