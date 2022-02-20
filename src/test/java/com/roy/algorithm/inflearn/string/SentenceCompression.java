@@ -25,7 +25,6 @@ public class SentenceCompression {
         // 입력받은 문자열의 마지막 문자열을 위해 가장 마지막에 공백을 하나 추가한다.
         char[] chars = String.format("%s ", sentence).toCharArray();
         int count = 1;
-
         for (int i = 0; i < chars.length - 1; i++) {
             if (chars[i] == chars[i + 1]) {
                 count++;
@@ -40,7 +39,6 @@ public class SentenceCompression {
         return answer.toString();
     }
 
-
     @Test
     @DisplayName("문자열 압축")
     public void main() {
@@ -48,4 +46,5 @@ public class SentenceCompression {
         String answer1 = solution1("KKHSSSSSSSE");
         assertEquals(expectedAnswer, answer1);
     }
+
 }
