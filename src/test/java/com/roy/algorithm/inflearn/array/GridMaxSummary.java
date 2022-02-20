@@ -26,7 +26,8 @@ import java.util.Arrays;
 // 11 25 50 53 15
 // 19 27 29 37 27
 // 19 13 30 13 19
-// - 출력예제 1 155
+// - 출력예제 1
+// 155
 @SuppressWarnings("NewClassNamingConvention")
 public class GridMaxSummary {
 
