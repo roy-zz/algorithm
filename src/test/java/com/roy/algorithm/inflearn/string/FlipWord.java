@@ -1,5 +1,13 @@
 package com.roy.algorithm.inflearn.string;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 단어 뒤집기
 //
 // N개의 단어가 주어지면 각 단어를 뒤집어 출력하는 프로그램을 작성하세요.
@@ -17,15 +25,6 @@ package com.roy.algorithm.inflearn.string;
 // doog
 // emiT
 // giB
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
 @SuppressWarnings("NewClassNamingConvention")
 public class FlipWord {
 

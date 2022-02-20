@@ -37,7 +37,8 @@ public class Code {
         StringBuilder answer = new StringBuilder();
         for (int i = 0; i < count; i++) {
             String tmp = code.substring(i * 7 , (i * 7) + 7);
-            tmp = tmp.replace("#", "1").replace("*", "0");
+            tmp = tmp.replace("#", "1");
+            tmp = tmp.replace("*", "0");
             // Binary 문자열 -> Decimal Integer -> Ascii Char
             answer.append((char) Integer.parseInt(tmp, 2));
         }

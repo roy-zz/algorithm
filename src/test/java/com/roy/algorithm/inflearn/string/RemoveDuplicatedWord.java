@@ -41,5 +41,6 @@ public class RemoveDuplicatedWord {
         String answer1 = solution1("ksekkset");
         Assertions.assertEquals("kset", answer1);
     }
+
 }
 

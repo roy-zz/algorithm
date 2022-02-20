@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 첫 줄에 자연수를 출력합니다.
 // - 입력예제 1 g0en2T0s8eSoft
 // - 출력예제 1 208
+@SuppressWarnings("NewClassNamingConvention")
 public class ExtractNumber {
 
     // ascii 코드를 활용하여 숫자만 추출하는 방법
