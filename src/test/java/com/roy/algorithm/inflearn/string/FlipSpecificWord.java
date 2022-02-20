@@ -40,4 +40,5 @@ public class FlipSpecificWord {
         String answer1 = solution1("a#b!GE*T@S");
         Assertions.assertEquals("S#T!EG*b@a", answer1);
     }
+
 }
