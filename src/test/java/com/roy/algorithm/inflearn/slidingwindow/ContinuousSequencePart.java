@@ -1,4 +1,4 @@
-package com.roy.algorithm.inflearn.twopointers;
+package com.roy.algorithm.inflearn.slidingwindow;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
