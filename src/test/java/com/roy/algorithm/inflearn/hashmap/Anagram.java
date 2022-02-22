@@ -48,7 +48,7 @@ public class Anagram {
             charMap.put(input1.charAt(i), charMap.getOrDefault(input1.charAt(i), 0) + 1);
         }
         for (int i = 0; i < input2.length(); i++) {
-            if (charMap.get(input2.charAt(i)) == 0) {
+            if (!charMap.containsKey(input2.charAt(i)) || charMap.get(input2.charAt(i)) == 0) {
                 return "NO";
             } else {
                 charMap.put(input2.charAt(i), charMap.get(input2.charAt(i)) - 1);
