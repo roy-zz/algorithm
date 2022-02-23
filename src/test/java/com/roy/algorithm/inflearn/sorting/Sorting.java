@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 @SuppressWarnings("NewClassNamingConvention")
 public class Sorting {
 
+    // 선택 정렬을 통한 해결 방법
     public int[] solution1(int[] inputs) {
         for (int i = 0; i < inputs.length; i++) {
             // 기본 인덱스는 i로 한다.
@@ -41,6 +42,20 @@ public class Sorting {
         return inputs;
     }
 
+    // 버블 정렬을 통한 해결 방법
+    public int[] solution2(int[] inputs) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs.length - i; j++) {
+                if (inputs[j] > inputs[j + 1]) {
+                    int tmp = inputs[j];
+                    inputs[j] = inputs[j + 1];
+                    inputs[j + 1] = tmp;
+                }
+            }
+        }
+        return inputs;
+    }
+
     @Test
     @DisplayName("정렬")
     public void main() {
@@ -48,6 +63,9 @@ public class Sorting {
         int[] expectedAnswer = {5, 7, 11, 13, 15, 23};
         int[] answer1 = solution1(inputs);
         assertArrayEquals(expectedAnswer, answer1);
+
+        int[] answer2 = solution1(inputs);
+        assertArrayEquals(expectedAnswer, answer2);
     }
 
 }
