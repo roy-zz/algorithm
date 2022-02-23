@@ -68,4 +68,5 @@ public class IronStick {
         int answer2 = solution1(input2);
         assertEquals(expectedAnswer2, answer2);
     }
+
 }
