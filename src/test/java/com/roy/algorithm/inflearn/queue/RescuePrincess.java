@@ -1,4 +1,4 @@
-package com.roy.algorithm.inflearn.stack;
+package com.roy.algorithm.inflearn.queue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
