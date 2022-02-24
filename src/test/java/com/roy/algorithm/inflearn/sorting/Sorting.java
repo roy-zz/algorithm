@@ -45,13 +45,31 @@ public class Sorting {
     // 버블 정렬을 통한 해결 방법
     public int[] solution2(int[] inputs) {
         for (int i = 0; i < inputs.length; i++) {
-            for (int j = 0; j < inputs.length - i; j++) {
+            // 배열의 끝의 직전까지 순회한다.
+            for (int j = 0; j < inputs.length - i - 1; j++) {
                 if (inputs[j] > inputs[j + 1]) {
                     int tmp = inputs[j];
                     inputs[j] = inputs[j + 1];
                     inputs[j + 1] = tmp;
                 }
             }
+        }
+        return inputs;
+    }
+
+    // 삽입 정렬을 통한 해결 방법
+    public int[] solution3(int[] inputs) {
+        for (int i = 1; i < inputs.length; i++) {
+            int temp = inputs[i];
+            int j;
+            for (j = i - 1; j >= 0; j--) {
+                if (inputs[j] > temp) {
+                    inputs[j + 1] = inputs[j];
+                } else {
+                    break;
+                }
+            }
+            inputs[j + 1] = temp;
         }
         return inputs;
     }
@@ -64,8 +82,11 @@ public class Sorting {
         int[] answer1 = solution1(inputs);
         assertArrayEquals(expectedAnswer, answer1);
 
-        int[] answer2 = solution1(inputs);
+        int[] answer2 = solution2(inputs);
         assertArrayEquals(expectedAnswer, answer2);
+
+        int[] answer3 = solution3(inputs);
+        assertArrayEquals(expectedAnswer, answer3);
     }
 
 }
