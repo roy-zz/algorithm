@@ -1,7 +1,14 @@
 package com.roy.algorithm.inflearn.sorting;
 
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 // 좌표 정렬
 //
@@ -27,24 +34,51 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class SortingCoordinate {
 
-    static class Coordinate implements Comparable {
+    @AllArgsConstructor
+    static class Coordinate implements Comparable<Coordinate> {
         int x;
         int y;
-
+        // compareTo는 사용할 때마다 헷갈리므로 암기하도록 한다.
+        // 결과값은 무조건 음수가 나오게 맞춘다.
+        // 결과 정렬은 this, target 순으로 정렬된다고 가정한다.
+        // 오름차순이라면 this(임의의 수 10), target(임의의 수 20)으로 정렬될 것이다.
+        // 따라서 음수가 나오게 하려면 this - target이 되어야한다.
+        // 내림차순이라면 this(임의의 수 20), target(임의의 수 10)으로 정렬될 것이다.
+        // 따라서 음수가 나오게 하려면 target - this가 되어야한다.
         @Override
-        public int compareTo(Object o) {
-            return 0;
+        public int compareTo(Coordinate target) {
+            if (this.x == target.x) {
+                return y - target.y;
+            } else {
+                return x - target.x;
+            }
         }
     }
 
     public int[][] solution1(int[][] coordinates) {
-        return null;
+        List<Coordinate> listOfCoordinates = new ArrayList<>();
+        for (int[] c : coordinates) {
+            listOfCoordinates.add(new Coordinate(c[0], c[1]));
+        }
+        Collections.sort(listOfCoordinates);
+        for (int i = 0; i < coordinates.length; i++) {
+            coordinates[i][0] = listOfCoordinates.get(i).x;
+            coordinates[i][1] = listOfCoordinates.get(i).y;
+        }
+        return coordinates;
     }
 
     @Test
     @DisplayName("좌표 정렬")
     public void main() {
-
+        int[][] coordinates = {
+                {2, 7}, {1, 3}, {1, 2}, {2, 5}, {3, 6}
+        };
+        int[][] expectedAnswer = {
+                {1, 2}, {1, 3}, {2, 5}, {2, 7}, {3, 6}
+        };
+        int[][] answer1 = solution1(coordinates);
+        assertArrayEquals(expectedAnswer, answer1);
     }
 
 }
