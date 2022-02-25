@@ -41,7 +41,7 @@ public class HorseBarn {
     public int solution1(int horseCount, int[] barns) {
         Arrays.sort(barns);
         int answer = 0;
-        // 가능한 말들의 최소값과 최대값을 구한다.
+        // 가능한 말들의 거리의 최소값과 최대값을 구한다.
         int maxDistance = Arrays.stream(barns).max().getAsInt();
         int minDistance = 1;
 

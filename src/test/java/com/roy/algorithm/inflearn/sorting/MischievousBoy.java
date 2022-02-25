@@ -10,6 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 // 장난꾸러기
+//
 // 새 학기가 시작되었습니다. 철수는 새 짝꿍을 만나 너무 신이 났습니다.
 // 철수네 반에는 N명의 학생들이 있습니다.
 // 선생님은 반 학생들에게 반 번호를 정해주기 위해 운동장에 반 학생들을 키가 가장 작은 학 생부터 일렬로 키순으로 세웠습니다.
