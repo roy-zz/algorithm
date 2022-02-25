@@ -67,7 +67,7 @@ public class MusicVideo {
     }
 
     @Test
-    @DisplayName("결정 알고리즘")
+    @DisplayName("뮤직비디오")
     public void main() {
         int count = 3;
         int[] musics = {1, 2, 3, 4, 5, 6, 7, 8, 9};
