@@ -20,16 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SuppressWarnings("NewClassNamingConvention")
 public class Factorial {
 
-    private int answer = 1;
-
     public int solution1(int number) {
-        if (number == 0) {
-            return answer;
+        if (number == 1) {
+            return 1;
         } else {
-            answer *= number;
-            solution1(number - 1);
+            return number * solution1(number - 1);
         }
-        return answer;
     }
 
     @Test
