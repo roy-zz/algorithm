@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 중위순회: 왼쪽 자식 -> 부모 -> 오른쪽 자식 순으로 방문
 // 후위순회: 왼쪽 자식 -> 오른쪽 자식 -> 부모 순으로 방문
 @SuppressWarnings("NewClassNamingConvention")
-public class BinaryTreeSearch {
+public class BinaryTreeSearchDFS {
 
     private final List<Integer> frontSearch = new ArrayList<>();
     private final List<Integer> midSearch = new ArrayList<>();

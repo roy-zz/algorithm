@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 //             2 (1을 사용하는 경우)                       2 (1을 사용하지 않는 경우)
 // 3 (2를 사용하는 경우) 3 (2를 사용하지 않는 경우)     3 (2를 사용하는 경우)          3 (2를 사용하지 않는 경우)
 @SuppressWarnings("NewClassNamingConvention")
-public class FindSubset {
+public class FindSubsetDFS {
 
     private final List<Integer[]> answer1 = new ArrayList<>();
     private final int number = 3;
