@@ -12,8 +12,10 @@ import org.junit.jupiter.api.Test;
 // 첫 번째 줄에 10진수 N(1<=N<=1,000)이 주어집니다.
 // - 출력설명
 // 첫 번째 줄에 이진수를 출력하세요.
-// - 입력예제 1 11
-// - 출력예제 1 1011
+// - 입력예제 1
+// 11
+// - 출력예제 1
+// 1011
 @SuppressWarnings("NewClassNamingConvention")
 public class PrintBinary {
 
