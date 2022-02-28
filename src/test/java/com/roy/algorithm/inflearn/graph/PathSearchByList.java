@@ -3,11 +3,14 @@ package com.roy.algorithm.inflearn.graph;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// 경로 탐색(인접행렬)
+// 경로 탐색(인접리스트)
+//
 // 방향그래프가 주어지면 1번 정점에서 N번 정점으로 가는 모든 경로의 가지 수를 출력하는 프로그램을 작성하세요.
 // 아래 그래프에서 1번 정점에서 5번 정점으로 가는 가지 수는
 // 1 2 3 4 5
@@ -35,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // - 출력예제 1
 // 6
 @SuppressWarnings("NewClassNamingConvention")
-public class PathSearchByArray {
+public class PathSearchByList {
 
     private static final int VERTEXES = 5;
     private static final int[] CHECK_ARRAY = new int[VERTEXES + 1];
@@ -44,29 +47,32 @@ public class PathSearchByArray {
             {2, 1}, {2, 3}, {2, 5},
             {3, 4}, {4, 2}, {4, 5}
     };
-    private int[][] graph;
+    private List<ArrayList<Integer>> graph = new ArrayList<>();
     private int answer = 0;
 
     public void solution1(int vertex) {
         if (vertex == VERTEXES) {
             answer++;
-        }
-        for (int i = 1; i <= VERTEXES; i++) {
-            if (graph[vertex][i] == 1 && CHECK_ARRAY[i] == 0) {
-                CHECK_ARRAY[i] = 1;
-                solution1(i);
-                CHECK_ARRAY[i] = 0;
+        } else {
+            for (int nextVertex : graph.get(vertex)) {
+                if (CHECK_ARRAY[nextVertex] == 0) {
+                    CHECK_ARRAY[nextVertex] = 1;
+                    solution1(nextVertex);
+                    CHECK_ARRAY[nextVertex] = 0;
+                }
             }
         }
     }
 
     @Test
-    @DisplayName("경로 탐색(인접행렬)")
+    @DisplayName("경로 탐색(인접리스트)")
     public void main() {
         int expectedAnswer = 6;
-        graph = new int[VERTEXES + 1][VERTEXES + 1];
+        for (int i = 1; i <= VERTEXES; i++) {
+            graph.add(new ArrayList<>());
+        }
         Arrays.stream(CONNECTIONS).forEach(connection ->
-            graph[connection[0]][connection[1]] = 1
+            graph.get(connection[0]).add(connection[1])
         );
         CHECK_ARRAY[1] = 1;
         solution1(1);
