@@ -39,6 +39,7 @@ public class BinaryTreeSearchDFS {
         }
     }
 
+    // 전위순회
     public void solution1(Node root) {
         if (Objects.nonNull(root)) {
             frontSearch.add(root.data);
@@ -47,6 +48,7 @@ public class BinaryTreeSearchDFS {
         }
     }
 
+    // 중위순회
     public void solution2(Node root) {
         if (Objects.nonNull(root)) {
             solution2(root.leftSon);
@@ -55,6 +57,7 @@ public class BinaryTreeSearchDFS {
         }
     }
 
+    // 후위순회
     public void solution3(Node root) {
         if (Objects.nonNull(root)) {
             solution3(root.leftSon);

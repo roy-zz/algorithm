@@ -8,6 +8,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // 경로 탐색(인접행렬)
+//
 // 방향그래프가 주어지면 1번 정점에서 N번 정점으로 가는 모든 경로의 가지 수를 출력하는 프로그램을 작성하세요.
 // 아래 그래프에서 1번 정점에서 5번 정점으로 가는 가지 수는
 // 1 2 3 4 5
