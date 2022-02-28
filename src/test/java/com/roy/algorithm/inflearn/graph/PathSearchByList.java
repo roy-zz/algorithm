@@ -47,7 +47,7 @@ public class PathSearchByList {
             {2, 1}, {2, 3}, {2, 5},
             {3, 4}, {4, 2}, {4, 5}
     };
-    private List<ArrayList<Integer>> graph = new ArrayList<>();
+    private final List<ArrayList<Integer>> graph = new ArrayList<>();
     private int answer = 0;
 
     public void solution1(int vertex) {
