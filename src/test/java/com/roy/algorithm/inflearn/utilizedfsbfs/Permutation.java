@@ -1,4 +1,4 @@
-package com.roy.algorithm.inflearn.dfsbfs;
+package com.roy.algorithm.inflearn.utilizedfsbfs;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
