@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 9 3
 // 9 6
 @SuppressWarnings("NewClassNamingConvention")
-public class Numbers {
+public class Permutation {
 
     private static final int[] NUMBERS = {3, 6, 9};
     private static final int COUNT = 2;
