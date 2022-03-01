@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 출력순서는 사전순으로 오름차순으로 출력합니다.
 // - 입력예제 1
 // 3 2
-// ▣ 출력예제 1
+// - 출력예제 1
 // 1 1
 // 1 2
 // 1 3
