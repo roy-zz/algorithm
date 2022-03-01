@@ -3,9 +3,12 @@ package com.roy.algorithm.inflearn.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// 섬나라 아일랜드(DFS)
+// 섬나라 아일랜드(BFS)
 //
 // N*N의 섬나라 아일랜드의 지도가 격자판의 정보로 주어집니다.
 // 각 섬은 1로 표시되어 상하좌 우와 대각선으로 연결되어 있으며, 0은 바다입니다.
@@ -34,7 +37,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // - 출력예제 1
 // 5
 @SuppressWarnings("NewClassNamingConvention")
-public class IslandDFS {
+public class IslandBFS {
+
+    static class Point {
+        int x;
+        int y;
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     private static final int SIZE = 7;
     private static final int[][] MAPS = {
@@ -52,22 +64,27 @@ public class IslandDFS {
             // 좌       우       상      하
             {-1, 0}, {1, 0}, {0, -1}, {0, 1}
     };
+    private final Queue<Point> points = new LinkedList<>();
 
     public void solution1(int x, int y) {
-        for (int[] direction : DIRECTIONS) {
-            int nextX = x + direction[0];
-            int nextY = y + direction[1];
-            if (nextX >= 0 && nextX < SIZE
-                    && nextY >= 0 && nextY < SIZE
-                    && MAPS[nextX][nextY] == 1) {
-                MAPS[nextX][nextY] = 0;
-                solution1(nextX, nextY);
+        points.offer(new Point(x, y));
+        while (!points.isEmpty()) {
+            Point currentPoint = points.poll();
+            for (int[] direction : DIRECTIONS) {
+                int nextX = currentPoint.x + direction[0];
+                int nextY = currentPoint.y + direction[1];
+                if (nextX >= 0 && nextX < SIZE
+                        && nextY >= 0 && nextY < SIZE
+                        && MAPS[nextX][nextY] == 1) {
+                    MAPS[nextX][nextY] = 0;
+                    points.offer(new Point(nextX, nextY));
+                }
             }
         }
     }
 
     @Test
-    @DisplayName("섬나라 아일랜드(DFS)")
+    @DisplayName("섬나라 아일랜드(BFS)")
     public void main() {
         int expectedAnswer = 5;
         int answer = 0;
