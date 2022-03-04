@@ -46,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 트리구조가 만들어지고나면 이후에 더 이상의 간선이 추가되지 않을 것이므로 중간에 끊어줄 수 있다. (시간복잡도 감소)
 // 만든 간선의 수를 카운트하고 만들어진 간선의 수가 정점의 수 + 1이라면 로직을 타지않고 흘려보내도록 한다.
 @SuppressWarnings("NewClassNamingConvention")
-public class WonderLandUnionFind {
+public class WonderLandKruskal {
 
     private int[] unionAndFind;
     private int count = 0;

@@ -11,6 +11,7 @@ import static java.util.Collections.reverseOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // 최대 수입 스케쥴 (PriorityQueue)
+//
 // 현수는 유명한 강연자이다. N개의 기업에서 강연 요청을 해왔다.
 // 각 기업은 D일 안에 와서 강연을 해주면 M만큼의 강연료를 주기로 했다.
 // 각 기업이 요청한 D와 M를 바탕으로 가장 많을 돈을 벌 수 있도록 강연 스케쥴을 짜야한다.
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 30 1
 // - 출력예제 1
 // 150
-// - 해설
+// - 풀이
 // 마감일 기준으로 내림차순으로 정렬하고 금액 기준으로 내림차순한다.
 // HARD 다시 풀어볼 것!
 @SuppressWarnings("NewClassNamingConvention")

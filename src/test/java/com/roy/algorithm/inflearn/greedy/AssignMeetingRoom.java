@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 2 3
 // - 출력예제 2
 // 2
-// 해설
+// - 풀이
 // 회의가 빨리 끝나는 순으로 선택을 해야한다.
 @SuppressWarnings("NewClassNamingConvention")
 public class AssignMeetingRoom {

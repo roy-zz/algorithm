@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 4 9
 // 5 14
 // 6 impossible
-// - 해설
+// - 풀이
 // 다익스트라 알고리즘을 적용하기 위해서는 가중치에 음수가 있어서는 안된다.
 // PriorityQueue를 사용하지 않은 경우의 시간 복잡도는 O(n * n)이 된다.
 // PriorityQueue의 시간 복잡도는 logn이므로 시간 복잡도는 = O(n * logn)이 된다.

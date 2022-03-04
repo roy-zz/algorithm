@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// 씨름 선수(Greedy: 현재 상황에서 최선의 선택을 한다.)
+// 씨름 선수
 //
 // 현수는 씨름 감독입니다. 현수는 씨름 선수를 선발공고를 냈고, N명의 지원자가 지원을 했습니다.
 // 현수는 각 지원자의 키와 몸무게 정보를 알고 있습니다. 현수는 씨름 선수 선발 원칙을 다음과 같이 정했습니다.
@@ -28,10 +28,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 181 60
 // - 출력예제 1
 // 3
-// 출력설명
+// - 출력설명
 // (183, 65), (180, 70), (170, 72) 가 선발됩니다.
 // (181, 60)은 (183, 65)보다 키와 몸무게 모두 낮기 때문에 탈락이고,
 // (172, 67)은 (180, 70) 때문에 탈락입니다.
+// - 풀이
+// Greedy: 현재 상황에서 최선의 선택을 한다.
 @SuppressWarnings("NewClassNamingConvention")
 public class Wrestler {
 

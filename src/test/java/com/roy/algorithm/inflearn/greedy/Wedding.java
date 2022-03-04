@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 5 14
 // - 출력예제 1
 // 2
-// 해설
+// - 풀이
 // 동일한 시간에 가는 사람과 오는 사람이 있는 경우 항상 가는 사람이 먼저 간다는 것을 주의할 것!
 @SuppressWarnings("NewClassNamingConvention")
 public class Wedding {
