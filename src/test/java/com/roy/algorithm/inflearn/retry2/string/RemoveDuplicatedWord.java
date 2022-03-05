@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.string;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 중복 문자 제거
 //
 // 소문자로 된 한개의 문자열이 입력되면 중복된 문자를 제거하고 출력하는 프로그램을 작성하세요.
@@ -14,4 +19,24 @@ package com.roy.algorithm.inflearn.retry2.string;
 // kset
 @SuppressWarnings("NewClassNamingConvention")
 public class RemoveDuplicatedWord {
+
+    public String solution1(String input) {
+        StringBuilder answer = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            if (i == input.indexOf(input.charAt(i))) {
+                answer.append(input.charAt(i));
+            }
+        }
+        return answer.toString();
+    }
+
+    @Test
+    @DisplayName("중복 문자 제거")
+    public void main() {
+        String input = "ksekkset";
+        String expectedAnswer = "kset";
+        String answer = solution1(input);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
