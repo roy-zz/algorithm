@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.string;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 가장 짧은 문자거리
 //
 // 한 개의 문자열 s와 문자 t가 주어지면 문자열 s의 각 문자가 문자 t와 떨어진 최소거리를 출력하는 프로그램을 작성하세요.
@@ -13,4 +18,38 @@ package com.roy.algorithm.inflearn.retry2.string;
 // 10121012210
 @SuppressWarnings("NewClassNamingConvention")
 public class ShortestWordDistance {
+
+    public int[] solution1(String word, char target) {
+        int[] answer = new int[word.length()];
+        int count = 100;
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == target) {
+                count = 0;
+            } else {
+                count++;
+            }
+            answer[i] = count;
+        }
+        count = 100;
+        for (int i = word.length() - 1; i >= 0; i--) {
+            if (word.charAt(i) == target) {
+                count = 0;
+            } else {
+                count++;
+            }
+            answer[i] = Math.min(answer[i], count);
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("가장 짧은 문자거리")
+    public void main() {
+        String input = "teachermode";
+        char target = 'e';
+        int[] expectedAnswer = {1, 0, 1, 2, 1, 0, 1, 2, 2, 1, 0};
+        int[] answer = solution1(input, target);
+        assertArrayEquals(expectedAnswer, answer);
+    }
+
 }
