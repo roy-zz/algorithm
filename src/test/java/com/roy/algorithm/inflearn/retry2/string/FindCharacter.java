@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.string;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 문자 찾기
 //
 // 한 개의 문자열을 입력받고, 특정 문자를 입력받아 해당 특정문자가 입력받은 문자열에 몇 개 존재하는지 알아내는 프로그램을 작성하세요.
@@ -10,8 +15,33 @@ package com.roy.algorithm.inflearn.retry2.string;
 // - 출력설명
 // 첫 줄에 해당 문자의 개수를 출력한다.
 // - 입력예제 1
-// Computercooler c
-// - 출력예제 1 2
+// Computercooler
+// c
+// - 출력예제 1
+// 2
 @SuppressWarnings("NewClassNamingConvention")
 public class FindCharacter {
+
+    public int solution1(String word, char target) {
+        int answer = 0;
+        word = word.toUpperCase();
+        target = Character.toUpperCase(target);
+        for (char c : word.toCharArray()) {
+            if (c == target) {
+                answer++;
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("문자 찾기")
+    public void main() {
+        String word = "Computercooler";
+        char target = 'c';
+        int expectedAnswer = 2;
+        int answer = solution1(word, target);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
