@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.string;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 유효한 팰린드롬
 //
 // 앞에서 읽을 때나 뒤에서 읽을 때나 같은 문자열을 팰린드롬이라고 합니다.
@@ -15,4 +20,30 @@ package com.roy.algorithm.inflearn.retry2.string;
 // YES
 @SuppressWarnings("NewClassNamingConvention")
 public class Palindrome {
+
+    public String solution1(String input) {
+        char[] charOfInput = input.toUpperCase().toCharArray();
+        int left = 0;
+        int right = charOfInput.length - 1;
+        while (right >= left) {
+            if (Character.isAlphabetic(charOfInput[left])
+                    && Character.isAlphabetic(charOfInput[right])
+                    && charOfInput[left] != charOfInput[right]) {
+                return "NO";
+            }
+            left++;
+            right--;
+        }
+        return "YES";
+    }
+
+    @Test
+    @DisplayName("유효한 팰린드롬")
+    public void main() {
+        String input = "found7, time: study; Yduts; emit, 7Dnuof";
+        String expectedAnswer = "YES";
+        String answer = solution1(input);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
