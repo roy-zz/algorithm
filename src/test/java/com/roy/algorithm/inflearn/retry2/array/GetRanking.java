@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.array;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 등수 구하기
 //
 // N명의 학생의 국어점수가 입력되면 각 학생의 등수를 입력된 순서대로 출력하는 프로그램을 작성하세요.
@@ -16,4 +21,28 @@ package com.roy.algorithm.inflearn.retry2.array;
 // 4 3 2 1 5
 @SuppressWarnings("NewClassNamingConvention")
 public class GetRanking {
+
+    public int[] solution1(int[] inputs) {
+        int[] answer = new int[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            int tempRank = 1;
+            for (int other : inputs) {
+                if (other > inputs[i]) {
+                    tempRank++;
+                }
+            }
+            answer[i] = tempRank;
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("등수 구하기")
+    public void main() {
+        int[] inputs = {87, 89, 92, 100, 76};
+        int[] expectedAnswer = {4, 3, 2, 1, 5};
+        int[] answer = solution1(inputs);
+        assertArrayEquals(expectedAnswer, answer);
+    }
+
 }
