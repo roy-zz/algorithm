@@ -1,5 +1,10 @@
 package com.roy.algorithm.inflearn.retry2.array;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 봉우리
 //
 // 지도 정보가 N*N 격자판에 주어집니다. 각 격자에는 그 지역의 높이가 쓰여있습니다.
@@ -30,4 +35,48 @@ package com.roy.algorithm.inflearn.retry2.array;
 // 10
 @SuppressWarnings("NewClassNamingConvention")
 public class MountainPeak {
+
+    private static final int[][] DIRECTIONS = {
+            // 좌     // 우   // 상    // 하
+            {-1, 0}, {1, 0}, {0, 1}, {0, -1}
+    };
+
+    public int solution1(int[][] inputs, int size) {
+        int answer = 0;
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[i].length; j++) {
+                boolean isPeak = true;
+                for (int[] direction : DIRECTIONS) {
+                    int nextX = i + direction[0];
+                    int nextY = j + direction[1];
+                    if (nextX >= 0 && nextY >= 0
+                            && nextX < size && nextY < size
+                            && inputs[i][j] <= inputs[nextX][nextY]
+                    ) {
+                        isPeak = false;
+                        break;
+                    }
+                }
+                if (isPeak) {
+                    answer++;
+                }
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("봉우리")
+    public void main() {
+        int[][] inputs = {
+                {5, 3, 7, 2, 3},
+                {3, 7, 1, 6, 1},
+                {7, 2, 5, 3, 4},
+                {4, 3, 6, 4, 1},
+                {8, 7, 3, 5, 2}
+        };
+        int expectedAnswer = 10;
+        int answer = solution1(inputs, 5);
+        assertEquals(expectedAnswer, answer);
+    }
 }
