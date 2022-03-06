@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // 20
 // - 출력예제 1
 // 8
+// - 풀이
+// 소수 구하는 법 암기!
 @SuppressWarnings("NewClassNamingConvention")
 public class PrimeNumber {
 

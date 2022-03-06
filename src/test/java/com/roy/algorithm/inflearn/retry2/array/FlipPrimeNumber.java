@@ -22,21 +22,38 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 32 55 62 20 250 370 200 30 100
 // - 출력예제 1
 // 23 2 73 2 3
+// - 풀이
+// 소수 구하는 법 암기!
 @SuppressWarnings("NewClassNamingConvention")
 public class FlipPrimeNumber {
 
-//    private boolean isPrime(int number) {
-//
-//    }
+    private boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        } else {
+            for (int i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     private int flip(int number) {
-        StringBuilder sbNumber = new StringBuilder(number);
+        StringBuilder sbNumber = new StringBuilder(String.valueOf(number));
         sbNumber.reverse();
         return Integer.parseInt(sbNumber.toString());
     }
 
     public Integer[] solution1(int[] inputs) {
         List<Integer> answer = new ArrayList<>();
+        for (int input : inputs) {
+            int flipNumber = flip(input);
+            if (isPrime(flipNumber)) {
+                answer.add(flipNumber);
+            }
+        }
         return answer.toArray(new Integer[0]);
     }
 
