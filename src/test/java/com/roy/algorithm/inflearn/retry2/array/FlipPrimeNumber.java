@@ -1,5 +1,13 @@
 package com.roy.algorithm.inflearn.retry2.array;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 뒤집은 소수
 //
 // N개의 자연수가 입력되면 각 자연수를 뒤집은 후 그 뒤집은 수가 소수이면 그 소수를 출력하는 프로그램을 작성하세요.
@@ -16,4 +24,29 @@ package com.roy.algorithm.inflearn.retry2.array;
 // 23 2 73 2 3
 @SuppressWarnings("NewClassNamingConvention")
 public class FlipPrimeNumber {
+
+//    private boolean isPrime(int number) {
+//
+//    }
+
+    private int flip(int number) {
+        StringBuilder sbNumber = new StringBuilder(number);
+        sbNumber.reverse();
+        return Integer.parseInt(sbNumber.toString());
+    }
+
+    public Integer[] solution1(int[] inputs) {
+        List<Integer> answer = new ArrayList<>();
+        return answer.toArray(new Integer[0]);
+    }
+
+    @Test
+    @DisplayName("뒤집은 소수")
+    public void main() {
+        int[] inputs = {32, 55, 62, 20, 250, 370, 200, 30, 100};
+        Integer[] expectedAnswer = {23, 2, 73, 2, 3};
+        Integer[] answer = solution1(inputs);
+        assertArrayEquals(expectedAnswer, answer);
+    }
+
 }
