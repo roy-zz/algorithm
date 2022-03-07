@@ -1,5 +1,13 @@
 package com.roy.algorithm.inflearn.retry2.queue;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 공주 구하기
 //
 // 정보 왕국의 이웃 나라 외동딸 공주가 숲속의 괴물에게 잡혀갔습니다.
@@ -18,9 +26,42 @@ package com.roy.algorithm.inflearn.retry2.queue;
 // - 출력설명
 // 첫 줄에 마지막 남은 왕자의 번호를 출력합니다.
 // - 입력예제 1
-// 83
+// 8 3
 // - 출력예제 1
 // 7
 @SuppressWarnings("NewClassNamingConvention")
 public class RescuePrincess {
+
+    public int solution1(int princes, int exitNumber) {
+        Queue<Integer> queueOfPrinces = new LinkedList<>();
+        for (int i = 1; i <= princes; i++) {
+            queueOfPrinces.offer(i);
+        }
+        int count = 0;
+        int answer = 0;
+        while(!queueOfPrinces.isEmpty()) {
+            count++;
+            int tempPrince = queueOfPrinces.poll();
+            if (count == exitNumber) {
+                count = 0;
+            } else {
+                queueOfPrinces.offer(tempPrince);
+            }
+            if (queueOfPrinces.size() == 1) {
+                answer = queueOfPrinces.poll();
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("공주 구하기")
+    public void main() {
+        int princes = 8;
+        int exitNumber = 3;
+        int expectedAnswer = 7;
+        int answer = solution1(princes, exitNumber);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
