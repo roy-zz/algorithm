@@ -1,5 +1,12 @@
 package com.roy.algorithm.inflearn.retry2.stack;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 후위식 연산(postfix)
 //
 // 후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.
@@ -12,6 +19,45 @@ package com.roy.algorithm.inflearn.retry2.stack;
 // 352+*9-
 // - 출력예제 1
 // 12
+// - 풀이
+// ASCII '0' 에서 -48을 해줘야 숫자 0이 되는 것을 기억하자.
 @SuppressWarnings("NewClassNamingConvention")
 public class BackwardCalculation {
+
+    public int solution1(String inputs) {
+        Stack<Integer> stackOfNumber = new Stack<>();
+        for (char c : inputs.toCharArray()) {
+            if (Character.isDigit(c)) {
+                stackOfNumber.push(c - 48);
+            } else {
+                int right = stackOfNumber.pop();
+                int left = stackOfNumber.pop();
+                switch (c) {
+                    case '+':
+                        stackOfNumber.push(left + right);
+                        break;
+                    case '-':
+                        stackOfNumber.push(left - right);
+                        break;
+                    case '*':
+                        stackOfNumber.push(left * right);
+                        break;
+                    case '/':
+                        stackOfNumber.push(left / right);
+                        break;
+                }
+            }
+        }
+        return stackOfNumber.pop();
+    }
+
+    @Test
+    @DisplayName("후위식 연산(postfix)")
+    public void main() {
+        String inputs = "352+*9-";
+        int expectedAnswer = 12;
+        int answer = solution1(inputs);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
