@@ -1,5 +1,13 @@
 package com.roy.algorithm.inflearn.retry2.queue;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 응급실
 //
 // 메디컬 병원 응급실에는 의사가 한 명밖에 없습니다.
@@ -7,7 +15,7 @@ package com.roy.algorithm.inflearn.retry2.queue;
 // 이런 문제를 보완하기 위해 응급실은 다음과 같은 방법으로 환자의 진료순서를 정합니다.
 // - 환자가 접수한 순서대로의 목록에서 제일 앞에 있는 환자목록을 꺼냅니다.
 // - 나머지 대기 목록에서 꺼낸 환자 보다 위험도가 높은 환자가 존재하면 대기목록 제일 뒤로다시 넣습니다. 그렇지 않으면 진료를 받습니다.
-// 즉, 대기목록에 자기 보다 위험도가 높은 환자가 없을 때 자신이 진료를 받는 구조입니다.
+// 즉, 대기목록에 자기보다 위험도가 높은 환자가 없을 때 자신이 진료를 받는 구조입니다.
 // 현재 N명의 환자가 대기목록에 있습니다.
 // N명의 대기목록 순서의 환자 위험도가 주어지면, 대기목록상의 M번째 환자는 몇 번째로 진료를 받는지 출력하는 프로그램을 작성하세요.
 // 대기목록상의 M번째는 대기목록의 제일 처음 환자를 0번째로 간주하여 표현한 것입니다.
@@ -29,4 +37,51 @@ package com.roy.algorithm.inflearn.retry2.queue;
 // 4
 @SuppressWarnings("NewClassNamingConvention")
 public class EmergencyRoom {
+
+    static class Patient {
+        int index;
+        int level;
+        public Patient(int index, int level) {
+            this.index = index;
+            this.level = level;
+        }
+    }
+
+    public int solution1(int[] patients, int targetPatient) {
+        Queue<Patient> queueOfPatients = new LinkedList<>();
+        for (int i = 0; i < patients.length; i++) {
+            queueOfPatients.offer(new Patient(i, patients[i]));
+        }
+        int answer = 0;
+        while (!queueOfPatients.isEmpty()) {
+            int maxValue = queueOfPatients.stream().mapToInt(i -> i.level).max().getAsInt();
+            Patient tempPatient = queueOfPatients.poll();
+            if (tempPatient.level == maxValue) {
+                answer++;
+                if (tempPatient.index == targetPatient) {
+                    queueOfPatients.clear();
+                }
+            } else {
+                queueOfPatients.offer(tempPatient);
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("응급실")
+    public void main() {
+        int[] patients1 = {60, 50, 70, 80, 90};
+        int targetPatient1 = 2;
+        int expectedAnswer1 = 3;
+        int answer1 = solution1(patients1, targetPatient1);
+        assertEquals(expectedAnswer1, answer1);
+
+        int[] patients2 = {70, 60, 90, 60, 60, 60};
+        int targetPatient2 = 3;
+        int expectedAnswer2 = 4;
+        int answer2 = solution1(patients2, targetPatient2);
+        assertEquals(expectedAnswer2, answer2);
+    }
+
 }
