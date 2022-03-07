@@ -1,6 +1,14 @@
 package com.roy.algorithm.inflearn.retry2.stack;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 쇠막대기
+//
 // 여러 개의 쇠막대기를 레이저로 절단하려고 한다.
 // 효율적인 작업을 위해서 쇠막대기를 아래에서 위로 겹쳐 놓고,
 // 레이저를 위에서 수직으로 발사하여 쇠막대기들을 자른다. 쇠막대기와 레이저의 배치는 다음 조건을 만족한다.
@@ -21,10 +29,48 @@ package com.roy.algorithm.inflearn.retry2.stack;
 // 한 줄에 쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 공백없이 주어진다. 괄호 문자의 개수는 최대 100,000이다.
 // - 출력설명
 // 잘려진 조각의 총 개수를 나타내는 정수를 한 줄에 출력한다.
-// - 입력예제 1 ()(((()())(())()))(())
-// - 출력예제 1 17
-// - 입력예제 2 (((()(()()))(())()))(()())
-// - 출력예제 2 24
+// - 입력예제 1
+// ()(((()())(())()))(())
+// - 출력예제 1
+// 17
+// - 입력예제 2
+// (((()(()()))(())()))(()())
+// - 출력예제 2
+// 24
+// - 풀이
+// )괄호를 만났을 때 poll되는 (를 제외하고 남아있는 stack의 size만큼 쇠막대기가 생성된다.
 @SuppressWarnings("NewClassNamingConvention")
 public class IronStick {
+
+    public int solution1(String inputs) {
+        int answer = 0;
+        Stack<Character> stackOfChar = new Stack<>();
+        for (int i = 0; i < inputs.length(); i++) {
+            if (inputs.charAt(i) == '(') {
+                stackOfChar.push(inputs.charAt(i));
+            } else if (inputs.charAt(i - 1) == '(') {
+                stackOfChar.pop();
+                answer += stackOfChar.size();
+            } else {
+                stackOfChar.pop();
+                answer++;
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("쇠막대기")
+    public void main() {
+        String inputs1 = "()(((()())(())()))(())";
+        int expectedAnswer1 = 17;
+        int answer1 = solution1(inputs1);
+        assertEquals(expectedAnswer1, answer1);
+
+        String inputs2 = "(((()(()()))(())()))(()())";
+        int expectedAnswer2 = 24;
+        int answer2 = solution1(inputs2);
+        assertEquals(expectedAnswer2, answer2);
+    }
+
 }
