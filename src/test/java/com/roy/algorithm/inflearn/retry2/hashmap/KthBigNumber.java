@@ -1,5 +1,14 @@
 package com.roy.algorithm.inflearn.retry2.hashmap;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // K번째 큰 수
 //
 // 현수는 1부터 100사이의 자연수가 적힌 N장의 카드를 가지고 있습니다. 같은 숫자의 카드가 여러장 있을 수 있습니다.
@@ -17,4 +26,35 @@ package com.roy.algorithm.inflearn.retry2.hashmap;
 // 143
 @SuppressWarnings("NewClassNamingConvention")
 public class KthBigNumber {
+
+    public int solution(int[] inputs, int count) {
+        Set<Integer> setOfSum = new TreeSet<>(Collections.reverseOrder());
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = i + 1; j < inputs.length; j++) {
+                for (int k = j + 1; k < inputs.length; k++) {
+                    setOfSum.add(inputs[i] + inputs[j] + inputs[k]);
+                }
+            }
+        }
+        int tmpCount = 0;
+        int answer = 0;
+        for (int sum : setOfSum) {
+            tmpCount++;
+            if (tmpCount == count) {
+                answer = sum;
+            }
+        }
+        return answer;
+    }
+
+    @Test
+    @DisplayName("K번째 큰 수")
+    public void main() {
+        int[] inputs = {13, 15, 34, 23, 45, 65, 33, 11, 26, 42};
+        int count = 3;
+        int expectedAnswer = 143;
+        int answer = solution(inputs, count);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
