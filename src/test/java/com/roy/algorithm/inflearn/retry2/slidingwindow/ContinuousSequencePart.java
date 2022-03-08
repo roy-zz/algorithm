@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.slidingwindow;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 연속 부분수열
 //
 // N개의 수로 이루어진 수열이 주어집니다.
@@ -15,12 +17,49 @@ import org.junit.jupiter.api.Test;
 // - 출력설명
 // 첫째 줄에 경우의 수를 출력한다.
 // - 입력예제 1
-// 86
+// 8 6
 // 1 2 1 3 1 1 1 2
 // - 출력예제 1
 // 3
 @SuppressWarnings("NewClassNamingConvention")
 public class ContinuousSequencePart {
+
+    public int solution1(int length, int sum, int[] inputs) {
+        int answer = 0;
+        int left = 0;
+        int right = 0;
+        int tempSum = 0;
+        while (left < length && right < length) {
+            if (tempSum == sum) {
+                answer++;
+                tempSum -= inputs[left++];
+            } else if (tempSum > sum) {
+                tempSum -= inputs[left++];
+            } else {
+                tempSum += inputs[right++];
+            }
+        }
+        return answer;
+    }
+
+    public int solution2(int length, int sum, int[] inputs) {
+        int answer = 0;
+        int tempSum = 0;
+        int left = 0;
+        for (int right = 0; right < length; right++) {
+            tempSum += inputs[right];
+            if (tempSum == sum) {
+                answer++;
+            }
+            while (tempSum >= sum) {
+                tempSum -= inputs[left++];
+                if (tempSum == sum) {
+                    answer++;
+                }
+            }
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("연속 부분수열")
@@ -29,10 +68,10 @@ public class ContinuousSequencePart {
         int length = 8;
         int sum = 6;
         int expectedAnswer = 3;
-//        int answer1 = solution1(length, sum, inputs);
-//        assertEquals(expectedAnswer, answer1);
-//        int answer2 = solution2(length, sum, inputs);
-//        assertEquals(expectedAnswer, answer2);
+        int answer1 = solution1(length, sum, inputs);
+        assertEquals(expectedAnswer, answer1);
+        int answer2 = solution2(length, sum, inputs);
+        assertEquals(expectedAnswer, answer2);
     }
 
 }
