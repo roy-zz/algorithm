@@ -1,5 +1,13 @@
 package com.roy.algorithm.inflearn.retry2.hashmap;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 학급 회장
 //
 // 학급 회장을 뽑는데 후보로 기호 A, B, C, D, E 후보가 등록을 했습니다.
@@ -18,4 +26,29 @@ package com.roy.algorithm.inflearn.retry2.hashmap;
 // C
 @SuppressWarnings("NewClassNamingConvention")
 public class ClassPrinciple {
+
+    public char solution(String inputs) {
+        Map<Character, Integer> mapOfInputs = new HashMap<>();
+        int maxCount = Integer.MIN_VALUE;
+        char maxStudent = inputs.toCharArray()[0];
+        for (char c : inputs.toCharArray()) {
+            int tempCount = mapOfInputs.getOrDefault(c, 0);
+            mapOfInputs.put(c, tempCount + 1);
+            if (tempCount + 1 > maxCount) {
+                maxCount = tempCount + 1;
+                maxStudent = c;
+            }
+        }
+        return maxStudent;
+    }
+
+    @Test
+    @DisplayName("학급 회장")
+    public void main() {
+        String inputs = "BACBACCACCBDEDE";
+        char expectedAnswer = 'C';
+        char answer = solution(inputs);
+        assertEquals(expectedAnswer, answer);
+    }
+
 }
