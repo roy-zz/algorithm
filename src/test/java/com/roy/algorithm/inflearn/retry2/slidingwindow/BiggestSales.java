@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.slidingwindow;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 최대 매출
 //
 // 현수의 아빠는 제과점을 운영합니다. 현수아빠는 현수에게 N일 동안의 매출기록을 주고 연속 된 K일 동안의 최대 매출액이 얼마인지 구하라고 했습니다.
@@ -22,14 +24,27 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class BiggestSales {
 
+    public int solution1(int[] inputs, int totalDays, int days) {
+        int answer = 0;
+        int sum = 0;
+        for (int i = 0; i < days; i++) {
+            sum += inputs[i];
+        }
+        for (int i = days; i < totalDays; i++) {
+            sum += inputs[i] - inputs[i - days];
+            answer = Math.max(sum, answer);
+        }
+        return answer;
+    }
+
     @Test
     @DisplayName("최대 매출")
     public void main() {
         int[] inputs = {12, 15, 11, 20, 25, 10, 20, 19, 13, 15};
         int totalDays = 10;
         int days = 3;
-        // int answer1 = solution1(inputs, totalDays, days);
-        // assertEquals(56, answer1);
+        int answer1 = solution1(inputs, totalDays, days);
+        assertEquals(56, answer1);
     }
 
 }
