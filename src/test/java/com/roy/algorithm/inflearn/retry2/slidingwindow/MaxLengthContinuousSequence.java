@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.slidingwindow;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 최대 길이 연속부분수열
 //
 // 0과 1로 구성된 길이가 N인 수열이 주어집니다. 여러분은 이 수열에서 최대 k번을 0을 1로 변경할 수 있습니다.
@@ -14,11 +16,32 @@ import org.junit.jupiter.api.Test;
 // - 출력설명
 // 첫 줄에 최대 길이를 출력하세요.
 // - 입력예제 1
-// 14 2 11001101101101
+// 14 2
+// 11001101101101
 // - 출력예제 1
 // 8
 @SuppressWarnings("NewClassNamingConvention")
 public class MaxLengthContinuousSequence {
+
+    public int solution1(int length, int change, int[] arr) {
+        int answer = 0;
+        int zeroCount = 0;
+        int left = 0;
+        int right = 0;
+        for (right = 0; right < length; right++) {
+            if (arr[right] == 0) {
+                zeroCount++;
+            }
+            while (zeroCount > change) {
+                if (arr[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+            answer = Math.max(answer, right - left + 1);
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("최대 길이 연속부분수열")
@@ -27,8 +50,8 @@ public class MaxLengthContinuousSequence {
         int change = 2;
         int[] arr = {1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1};
         int expectedAnswer = 8;
-//        int answer1 = solution1(length, change, arr);
-//        assertEquals(expectedAnswer, answer1);
+        int answer1 = solution1(length, change, arr);
+        assertEquals(expectedAnswer, answer1);
     }
 
 }
