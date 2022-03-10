@@ -5,9 +5,11 @@ package com.roy.algorithm.inflearn.retry2.sorting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // Least Recently Used
 //
-// 캐시메모리는 CPU와 주기억장치(DRAM) 사이의 고속의 임시 메모리로서 CPU가 처리할 작업을 저장해 놓았다가 필요할 바로 사용해서 처리속도를 높이는 장치이다.
+// 캐시메모리는 CPU와 주기억장치(DRAM) 사이의 고속의 임시 메모리로서 CPU가 처리할 작업을 저장해 놓았다가 필요한 경우 바로 사용해서 처리속도를 높이는 장치이다.
 // 워낙 비싸고 용량이 작아 효율적으로 사용해야 한다. 철수의 컴퓨터는 캐시메모리 사용 규칙이 LRU 알고리즘을 따른다.
 // LRU 알고리즘은 Least Recently Used 의 약자로 직역하자면 가장 최근에 사용되지 않은 것 정도의 의미를 가지고 있습니다.
 // 캐시에서 작업을 제거할 때 가장 오랫동안 사용하지 않은 것을 제거하겠다는 알고리즘입니다.
@@ -24,16 +26,48 @@ import org.junit.jupiter.api.Test;
 // - 출력설명
 // 마지막 작업 후 캐시메모리의 상태를 가장 최근 사용된 작업부터 차례로 출력합니다.
 // - 입력예제 1
-// 59
-// 123262357
+// 5 9
+// 1 2 3 2 6 2 3 5 7
 // - 출력예제 1
-// 75326
+// 7 5 3 2 6
+// HARD
 @SuppressWarnings("NewClassNamingConvention")
 public class LeastRecentlyUsed {
+
+    public int[] solution1(int[] inputs, int size) {
+        int[] answer = new int[size];
+        for (int i = 0; i < inputs.length; i++) {
+            int temp = inputs[i];
+            int targetIndex = -1;
+            for (int j = 0; j < size; j++) {
+                if (temp == answer[j]) {
+                    targetIndex = j;
+                    break;
+                }
+            }
+            // Cache Miss
+            if (targetIndex == -1) {
+                for (int j = size - 1; j >= 1; j--) {
+                    answer[j] = answer[j - 1];
+                }
+            // Cache Hit
+            } else {
+                for (int j = targetIndex; j >= 1; j--) {
+                    answer[j] = answer[j - 1];
+                }
+            }
+            answer[0] = temp;
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("Least Recently Used")
     public void main() {
+        int[] inputs = {1, 2, 3, 2, 6, 2, 3, 5, 7};
+        int[] expectedAnswer = {7, 5, 3, 2, 6};
+        int[] answer = solution1(inputs, 5);
+        assertArrayEquals(expectedAnswer, answer);
     }
 
 }
