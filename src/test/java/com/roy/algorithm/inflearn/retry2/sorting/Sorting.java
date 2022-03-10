@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.sorting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 정렬
 //
 // N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 선택정렬입니다.
@@ -16,12 +18,69 @@ import org.junit.jupiter.api.Test;
 // 13 5 11 7 23 15
 // - 출력예제 1
 // 5 7 11 13 15 23
+// - 풀이
+// 반드시 암기할 것!
 @SuppressWarnings("NewClassNamingConvention")
 public class Sorting {
+
+    // 선택정렬
+    public int[] solution1(int[] inputs) {
+        for (int i = 0; i < inputs.length; i++) {
+            int index = i;
+            for (int j = i + 1; j < inputs.length; j++) {
+                if (inputs[index] > inputs[j]) {
+                    index = j;
+                }
+            }
+            int temp = inputs[index];
+            inputs[index] = inputs[i];
+            inputs[i] = temp;
+        }
+        return inputs;
+    }
+
+    // 버블정렬
+    public int[] solution2(int[] inputs) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs.length - i - 1; j++) {
+                if (inputs[j] > inputs[j + 1]) {
+                    int temp = inputs[j];
+                    inputs[j + 1] = inputs[j];
+                    inputs[j] = temp;
+                }
+            }
+        }
+        return inputs;
+    }
+
+    // 삽입정렬
+    public int[] solution3(int[] inputs) {
+        for (int i = 0; i < inputs.length; i++) {
+            int temp = inputs[i];
+            int j;
+            for (j = i - 1; j >= 0; j--) {
+                if (inputs[j] > temp) {
+                    inputs[j + 1] = inputs[j];
+                } else {
+                    break;
+                }
+            }
+            inputs[j + 1] = temp;
+        }
+        return inputs;
+    }
 
     @Test
     @DisplayName("정렬")
     public void main() {
+        int[] inputs = {13, 5, 11, 7, 23, 15};
+        int[] expectedAnswer = {5, 7, 11, 13, 15, 23};
+        int[] answer1 = solution1(inputs);
+        assertArrayEquals(expectedAnswer, answer1);
+        int[] answer2 = solution2(inputs);
+        assertArrayEquals(expectedAnswer, answer2);
+        int[] answer3 = solution3(inputs);
+        assertArrayEquals(expectedAnswer, answer3);
     }
 
 }
