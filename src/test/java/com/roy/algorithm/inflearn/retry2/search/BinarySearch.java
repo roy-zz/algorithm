@@ -3,6 +3,10 @@ package com.roy.algorithm.inflearn.retry2.search;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 이분검색
 //
 // 임의의 N개의 숫자가 입력으로 주어집니다.
@@ -17,12 +21,39 @@ import org.junit.jupiter.api.Test;
 // 23 87 65 12 57 32 99 81
 // - 출력예제 1
 // 3
+// - 풀이
+// 이분탐색법 암기할 것!
 @SuppressWarnings("NewClassNamingConvention")
 public class BinarySearch {
+
+    public int solution1(int[] numbers, int targetNumber) {
+        Arrays.sort(numbers);
+        int answer = 0;
+        int left = 0;
+        int right = numbers.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int temp = numbers[mid];
+            if (temp == targetNumber) {
+                answer = mid + 1;
+                break;
+            } else if (temp > targetNumber) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("이분검색")
     public void main() {
+        int[] numbers = {23, 87, 65, 12, 57, 32, 99, 81};
+        int targetNumber = 32;
+        int expectedAnswer = 3;
+        int answer = solution1(numbers, targetNumber);
+        assertEquals(expectedAnswer, answer);
     }
 
 }
