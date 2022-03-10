@@ -3,6 +3,10 @@ package com.roy.algorithm.inflearn.retry2.search;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 마구간 정하기 (결정알고리즘)
 //
 // N개의 마구간이 수직선상에 있습니다. 각 마구간은 x1, x2, x3, ......, xN의 좌표를 가지며,
@@ -19,12 +23,48 @@ import org.junit.jupiter.api.Test;
 // 1 2 8 4 9
 // - 출력예제 1
 // 3
+// VERY HARD
 @SuppressWarnings("NewClassNamingConvention")
 public class HorseBarn {
+
+    private int decision(int[] barns, int distance) {
+        int count = 1;
+        int startingPoint = barns[0];
+        for (int barn : barns) {
+            if (barn - startingPoint >= distance) {
+                count++;
+                startingPoint = barn;
+            }
+        }
+        return count;
+    }
+
+    public int solution1(int[] barns, int horses) {
+        Arrays.sort(barns);
+        int answer = 0;
+        int min = 1;
+        int max = Arrays.stream(barns).max().getAsInt();
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            int availableHorses = decision(barns, mid);
+            if (availableHorses >= horses) {
+                answer = mid;
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("마구간")
     public void main() {
+        int[] barns = {1, 2, 8, 4, 9};
+        int horses = 3;
+        int expectedAnswer = 3;
+        int answer = solution1(barns, horses);
+        assertEquals(expectedAnswer, answer);
     }
 
 }
