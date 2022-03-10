@@ -3,6 +3,11 @@ package com.roy.algorithm.inflearn.retry2.sorting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 장난꾸러기
 //
 // 새 학기가 시작되었습니다. 철수는 새 짝꿍을 만나 너무 신이 났습니다.
@@ -20,19 +25,111 @@ import org.junit.jupiter.api.Test;
 // 9
 // 120 125 152 130 135 135 143 127 160
 // - 출력예제 1
-// 38
+// 3 8
 // 출력해설 : 키 정보 152가 철수이고, 127이 철수 짝꿍입니다.
 // - 입력예제 2
 // 6
 // 120 130 150 150 130 150
 // - 출력예제 2
-// 35
+// 3 5
 @SuppressWarnings("NewClassNamingConvention")
 public class MischievousBoy {
+
+    // 선택 정렬을 통한 정렬
+    public Integer[] solution1(int[] friends) {
+        List<Integer> answer = new ArrayList<>();
+        int[] originFriends = friends.clone();
+        for (int i = 0; i < friends.length; i++) {
+            int index = i;
+            for (int j = i + 1; j < friends.length; j++) {
+                if (friends[index] > friends[j]) {
+                    index = j;
+                }
+            }
+            if (index != i) {
+                int temp = friends[index];
+                friends[index] = friends[i];
+                friends[i] = temp;
+            }
+        }
+        for (int i = 0; i < friends.length; i++) {
+            if (friends[i] != originFriends[i]) {
+                answer.add(i + 1);
+            }
+        }
+        return answer.toArray(new Integer[0]);
+    }
+
+    // 버블 정렬을 통한 정렬
+    public Integer[] solution2(int[] friends) {
+        List<Integer> answer = new ArrayList<>();
+        int[] originFriends = friends.clone();
+        for (int i = 0; i < friends.length; i++) {
+            for (int j = 0; j < friends.length - i - 1; j++) {
+                if (friends[j] > friends[j + 1]) {
+                    int temp = friends[j];
+                    friends[j] = friends[j + 1];
+                    friends[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < friends.length; i++) {
+            if (friends[i] != originFriends[i]) {
+                answer.add(i + 1);
+            }
+        }
+        return answer.toArray(new Integer[0]);
+    }
+
+    // 삽입 정렬을 통한 정렬
+    public Integer[] solution3(int[] friends) {
+        List<Integer> answer = new ArrayList<>();
+        int[] originFriends = friends.clone();
+        for (int i = 0; i < friends.length; i++) {
+            int temp = friends[i];
+            int j;
+            for (j = i - 1; j >= 0; j--) {
+                if (friends[j] > temp) {
+                    friends[j + 1] = friends[j];
+                } else {
+                    break;
+                }
+            }
+            friends[j + 1] = temp;
+        }
+        for (int i = 0; i < friends.length; i++) {
+            if (friends[i] != originFriends[i]) {
+                answer.add(i + 1);
+            }
+        }
+        return answer.toArray(new Integer[0]);
+    }
 
     @Test
     @DisplayName("장난꾸러기")
     public void main() {
+        int[] friends1 = {120, 125, 152, 130, 135, 135, 143, 127, 160};
+        int[] friends2 = {120, 130, 150, 150, 130, 150};
+        Integer[] expectedAnswer1 = {3, 8};
+        Integer[] expectedAnswer2 = {3, 5};
+        Integer[] answer1_1 = solution1(friends1);
+        Integer[] answer1_2 = solution1(friends2);
+        assertArrayEquals(expectedAnswer1, answer1_1);
+        assertArrayEquals(expectedAnswer2, answer1_2);
+
+        friends1 = new int[]{120, 125, 152, 130, 135, 135, 143, 127, 160};
+        friends2 = new int[]{120, 130, 150, 150, 130, 150};
+        Integer[] answer2_1 = solution2(friends1);
+        Integer[] answer2_2 = solution2(friends2);
+        assertArrayEquals(expectedAnswer1, answer2_1);
+        assertArrayEquals(expectedAnswer2, answer2_2);
+
+        friends1 = new int[]{120, 125, 152, 130, 135, 135, 143, 127, 160};
+        friends2 = new int[]{120, 130, 150, 150, 130, 150};
+        Integer[] answer3_1 = solution3(friends1);
+        Integer[] answer3_2 = solution3(friends2);
+        assertArrayEquals(expectedAnswer1, answer3_1);
+        assertArrayEquals(expectedAnswer2, answer3_2);
     }
 
 }

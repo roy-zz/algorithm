@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 @SuppressWarnings("NewClassNamingConvention")
 public class MischievousBoy {
 
-    // 삽입 정렬을 통한 풀이
+    // 선택 정렬을 통한 풀이
     public Integer[] solution1(int[] students) {
         List<Integer> answer = new ArrayList<>();
         int[] originStudents = students.clone();
