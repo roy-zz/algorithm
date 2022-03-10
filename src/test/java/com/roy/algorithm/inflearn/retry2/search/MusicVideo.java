@@ -3,6 +3,10 @@ package com.roy.algorithm.inflearn.retry2.search;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 뮤직비디오 (결정알고리즘)
 //
 // 지니레코드에서는 불세출의 가수 조영필의 라이브 동영상을 DVD로 만들어 판매하려 한다.
@@ -25,13 +29,48 @@ import org.junit.jupiter.api.Test;
 // 1 2 3 4 5 6 7 8 9
 // - 출력예제 1
 // 17
+// VERY HARD
 @SuppressWarnings("NewClassNamingConvention")
 public class MusicVideo {
 
+    private int decision(int[] musics, int volume) {
+        int answer = 1;
+        int temp = 0;
+        for (int music : musics) {
+            if (temp + music <= volume) {
+                temp += music;
+            } else {
+                temp = music;
+                answer++;
+            }
+        }
+        return answer;
+    }
+
+    public int solution1(int[] musics, int count) {
+        int answer = 0;
+        int min = Arrays.stream(musics).max().getAsInt();
+        int max = Arrays.stream(musics).sum();
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            if (decision(musics, mid) <= count) {
+                answer = mid;
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return answer;
+    }
 
     @Test
     @DisplayName("뮤직비디오")
     public void main() {
+        int count = 3;
+        int[] musics = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int expectedAnswer = 17;
+        int answer = solution1(musics, count);
+        assertEquals(expectedAnswer, answer);
     }
 
 }
