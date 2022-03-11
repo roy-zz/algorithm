@@ -3,6 +3,12 @@ package com.roy.algorithm.inflearn.retry2.dfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 부분집합 구하기(DFS)
 //
 // 자연수 N이 주어지면 1부터 N까지의 원소를 갖는 집합의 부분집합을 모두 출력하는 프로그램을 작성하세요.
@@ -25,8 +31,32 @@ import org.junit.jupiter.api.Test;
 //                                          1
 //             2 (1을 사용하는 경우)                       2 (1을 사용하지 않는 경우)
 // 3 (2를 사용하는 경우) 3 (2를 사용하지 않는 경우)     3 (2를 사용하는 경우)          3 (2를 사용하지 않는 경우)
+// HARD
 @SuppressWarnings("NewClassNamingConvention")
 public class FindSubsetDFS {
+
+    private static final int NUMBER = 3;
+    private final List<Integer[]> answer = new ArrayList<>();
+    private final Integer[] checkArray = new Integer[NUMBER + 1];
+
+    public void solution1(int tempNumber) {
+        if (tempNumber == NUMBER + 1) {
+            List<Integer> tempList = new ArrayList<>();
+            for (int i = 0; i <= NUMBER; i++) {
+                if (Objects.nonNull(checkArray[i]) && checkArray[i] == 1) {
+                    tempList.add(i);
+                }
+            }
+            if (tempList.size() > 0) {
+                answer.add(tempList.toArray(new Integer[0]));
+            }
+        } else {
+            checkArray[tempNumber] = 1;
+            solution1(tempNumber + 1);
+            checkArray[tempNumber] = 0;
+            solution1(tempNumber + 1);
+        }
+    }
 
     @Test
     @DisplayName("부분집합 구하기(DFS)")
@@ -40,8 +70,8 @@ public class FindSubsetDFS {
                 {2},
                 {3}
         };
-        // solution1(1);
-        // assertArrayEquals(expectedAnswer1, answer1.toArray());
+         solution1(1);
+         assertArrayEquals(expectedAnswer1, answer.toArray());
     }
 
 }
