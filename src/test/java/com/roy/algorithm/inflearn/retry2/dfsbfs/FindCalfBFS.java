@@ -3,6 +3,11 @@ package com.roy.algorithm.inflearn.retry2.dfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 송아지 찾기(BFS: 상태트리탐색)
 //
 // 현수는 송아지를 잃어버렸다. 다행히 송아지에는 위치추적기가 달려 있다.
@@ -25,15 +30,43 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class FindCalfBFS {
 
+    private static final int[] DIRECTIONS = {1, -1, 5};
+    private static final int[] CHECK_ARRAY = new int[10001];
+    Queue<Integer> queueOfPosition = new LinkedList<>();
+
+    public int solution(int current, int target) {
+        CHECK_ARRAY[current] = 1;
+        queueOfPosition.offer(current);
+        int level = 0;
+        while (!queueOfPosition.isEmpty()) {
+            for (int i = 0; i < queueOfPosition.size(); i++) {
+                Integer tempPosition = queueOfPosition.poll();
+                for (int direction : DIRECTIONS) {
+                    int nextPosition = tempPosition + direction;
+                    if (nextPosition == target) {
+                        return level + 1;
+                    } else if (nextPosition >= 1
+                            && nextPosition <= 10000
+                            && CHECK_ARRAY[nextPosition] == 0) {
+                        CHECK_ARRAY[nextPosition] = 1;
+                        queueOfPosition.offer(nextPosition);
+                    }
+                }
+            }
+            level++;
+        }
+        return level;
+    }
+
     @Test
     @DisplayName("송아지 찾기(BFS: 상태트리탐색")
     public void main() {
         int expectedAnswer1 = 2;
-        // int answer1 = solution1(5, 14);
-        // assertEquals(expectedAnswer1, answer1);
-        int expectedAnswer2 = 1;
-        // int answer2 = solution1(8, 3);
-        // assertEquals(expectedAnswer2, answer2);
+         int answer1 = solution(5, 14);
+         assertEquals(expectedAnswer1, answer1);
+         int expectedAnswer2 = 1;
+         int answer2 = solution(8, 3);
+         assertEquals(expectedAnswer2, answer2);
     }
 
 }
