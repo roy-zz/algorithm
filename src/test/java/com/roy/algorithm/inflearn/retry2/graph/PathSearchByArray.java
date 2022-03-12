@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 경로 탐색(인접행렬)
 //
 // 방향그래프가 주어지면 1번 정점에서 N번 정점으로 가는 모든 경로의 가지 수를 출력하는 프로그램을 작성하세요.
@@ -46,6 +48,20 @@ public class PathSearchByArray {
     private int[][] graph;
     private int answer = 0;
 
+    public void solution(int vertex) {
+        if (vertex == VERTEXES) {
+            answer++;
+        } else {
+            for (int i = 1; i <= VERTEXES; i++) {
+                if (CHECK_ARRAY[i] == 0 && graph[vertex][i] == 1) {
+                    CHECK_ARRAY[i] = 1;
+                    solution(i);
+                    CHECK_ARRAY[i] = 0;
+                }
+            }
+        }
+    }
+
     @Test
     @DisplayName("경로 탐색(인접행렬)")
     public void main() {
@@ -55,8 +71,8 @@ public class PathSearchByArray {
             graph[connection[0]][connection[1]] = 1
         );
         CHECK_ARRAY[1] = 1;
-        // solution1(1);
-        // assertEquals(expectedAnswer, answer);
+         solution(1);
+         assertEquals(expectedAnswer, answer);
     }
 
 }
