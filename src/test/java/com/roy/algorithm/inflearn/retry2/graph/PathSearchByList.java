@@ -50,6 +50,21 @@ public class PathSearchByList {
     private final List<ArrayList<Integer>> graph = new ArrayList<>();
     private int answer = 0;
 
+    public void solution(int vertex) {
+        if (vertex == VERTEXES) {
+            answer++;
+            return;
+        }
+        List<Integer> currentVertexList = graph.get(vertex);
+        for (int nextVertex : currentVertexList) {
+            if (CHECK_ARRAY[nextVertex] == 0) {
+                CHECK_ARRAY[nextVertex] = 1;
+                solution(nextVertex);
+                CHECK_ARRAY[nextVertex] = 0;
+            }
+        }
+    }
+
     @Test
     @DisplayName("경로 탐색(인접리스트)")
     public void main() {
@@ -61,7 +76,7 @@ public class PathSearchByList {
             graph.get(connection[0]).add(connection[1])
         );
         CHECK_ARRAY[1] = 1;
-        // solution1(1);
+        solution(1);
         assertEquals(expectedAnswer, answer);
     }
 
