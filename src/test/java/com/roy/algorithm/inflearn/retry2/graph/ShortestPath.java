@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -32,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // 4 1
 // 5 2
 // 6 2
+// HARD
 @SuppressWarnings("NewClassNamingConvention")
 public class ShortestPath {
 
@@ -48,6 +51,23 @@ public class ShortestPath {
     };
     private final List<ArrayList<Integer>> graph = new ArrayList<>();
 
+    public void solution(int vertex) {
+        Queue<Integer> queueOfVertex = new LinkedList<>();
+        queueOfVertex.offer(vertex);
+        CHECK_ARRAY[vertex] = 1;
+        DISTANCES[vertex] = 0;
+        while (!queueOfVertex.isEmpty()) {
+            int currentVertex = queueOfVertex.poll();
+            for (int nextVertex : graph.get(currentVertex)) {
+                if (CHECK_ARRAY[nextVertex] == 0) {
+                    CHECK_ARRAY[nextVertex] = 1;
+                    queueOfVertex.offer(nextVertex);
+                    DISTANCES[nextVertex] = DISTANCES[currentVertex] + 1;
+                }
+            }
+        }
+    }
+
     @Test
     @DisplayName("그래프 최단거리(BFS)")
     public void main() {
@@ -57,7 +77,7 @@ public class ShortestPath {
         for (int[] connection : CONNECTIONS) {
             graph.get(connection[0]).add(connection[1]);
         }
-        // solution1(1);
+        solution(1);
         assertArrayEquals(EXPECTED_DISTANCES, DISTANCES);
     }
 
