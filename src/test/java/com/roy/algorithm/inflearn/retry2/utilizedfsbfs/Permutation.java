@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 // 9 6
 @SuppressWarnings("NewClassNamingConvention")
 public class Permutation {
-
     @Test
     @DisplayName("순열 구하기")
     public void main() {
