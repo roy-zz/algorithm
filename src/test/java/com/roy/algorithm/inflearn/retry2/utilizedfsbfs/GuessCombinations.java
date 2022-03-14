@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 수열 추측하기
 //
 // 가장 윗줄에 1부터 N까지의 숫자가 한 개씩 적혀 있다.
@@ -30,13 +32,60 @@ import org.junit.jupiter.api.Test;
 // 4C0 4C1 4C2 4C3 4C4
 // n이 10인 경우 가장 위의 숫자는 아래와 같은 규칙을 따른다.
 // 9C0 9C1 9C2 9C3 9C4 9C5 9C6 9C7 9C8 9C9
-// HARD 다시 풀어볼 것!
+// VERY HARD 다시 풀어볼 것!
+// 순열, 수열 구하는 방식 암기할 것!
 @SuppressWarnings("NewClassNamingConvention")
 public class GuessCombinations {
+
+    private static final int NUMBER_COUNT = 4;
+    private static final int FINAL_NUMBER = 16;
+    private final int[] combinations = new int[NUMBER_COUNT];
+    private final int[] permutations = new int[NUMBER_COUNT];
+    private int[] answer = new int[NUMBER_COUNT];
+    private final int[] checkArray = new int[NUMBER_COUNT + 1];
+    private final int[][] memory = new int[NUMBER_COUNT + 1][NUMBER_COUNT + 1];
+    private boolean isEnd = false;
+
+    public int makeCombination(int n, int r) {
+        if (memory[n][r] > 0) {
+            return memory[n][r];
+        } else if (n == r || r == 0) {
+            return 1;
+        } else {
+            return memory[n][r] = makeCombination(n - 1, r - 1) + makeCombination(n - 1, r);
+        }
+    }
+
+    public void solution(int level, int sum) {
+        if (isEnd) {
+            return;
+        }
+        if (level == NUMBER_COUNT) {
+            if (sum == FINAL_NUMBER) {
+                isEnd = true;
+                answer = permutations.clone();
+            }
+        } else {
+            for (int i = 1; i <= NUMBER_COUNT; i++) {
+                if (checkArray[i] == 0) {
+                    checkArray[i] = 1;
+                    permutations[level] = i;
+                    solution(level + 1, sum + (combinations[level] * permutations[level]));
+                    checkArray[i] = 0;
+                }
+            }
+        }
+    }
 
     @Test
     @DisplayName("수열 추측하기")
     public void main() {
+        for (int i = 0; i < NUMBER_COUNT; i++) {
+            combinations[i] = makeCombination(NUMBER_COUNT - 1, i);
+        }
+        int[] expectedAnswer = {3, 1, 2, 4};
+        solution(0, 0);
+        assertArrayEquals(expectedAnswer, answer);
     }
 
 }
