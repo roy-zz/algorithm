@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 섬나라 아일랜드(DFS)
 //
 // N*N의 섬나라 아일랜드의 지도가 격자판의 정보로 주어집니다.
@@ -34,9 +36,47 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class IslandDFS {
 
+    private static final int[][] MAP = {
+            {1, 1, 0, 0, 0, 1, 0},
+            {0, 1, 1, 0, 1, 1, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0, 1, 1},
+            {1, 1, 0, 1, 1, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0},
+            {1, 0, 1, 0, 1, 0, 0}
+    };
+    private static final int[][] DIRECTIONS = {
+            {0, -1}, {0, 1}, {-1, 0}, {1, 0},
+            {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
+    };
+
+    public void solution(int x, int y) {
+        for (int[] direction : DIRECTIONS) {
+            int nextX = x + direction[0];
+            int nextY = y + direction[1];
+            if (nextX >= 0 && nextX < MAP.length
+                    && nextY >= 0 && nextY < MAP.length
+                    && MAP[nextX][nextY] == 1) {
+                MAP[nextX][nextY] = 0;
+                solution(nextX, nextY);
+            }
+        }
+    }
+
     @Test
     @DisplayName("섬나라 아일랜드(DFS)")
     public void main() {
+        int answer = 0;
+        for (int i = 0; i < MAP.length; i++) {
+            for (int j = 0; j < MAP.length; j++) {
+                if (MAP[i][j] == 1) {
+                    answer++;
+                    MAP[i][j] = 0;
+                    solution(i, j);
+                }
+            }
+        }
+        assertEquals(5, answer);
     }
 
 }
