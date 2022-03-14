@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 조합의 경우의 수(메모이제이션)
 //
 // 다음 공식을 사용하여 재귀를 이용해 조합수를 구해주는 프로그램을 작성하세요.
@@ -23,9 +25,25 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class NumberOfCombinations {
 
+    private final int[][] memory = new int[34][34];
+
+    public int solution(int n, int r) {
+        if (memory[n][r] > 0) {
+            return memory[n][r];
+        } else if (n == r || r == 0) {
+            return memory[n][r] = 1;
+        } else {
+            return memory[n][r] = solution(n - 1, r - 1) + solution(n - 1, r);
+        }
+    }
+
     @Test
-    @DisplayName("조합의 경우의 수(메모이제이션")
+    @DisplayName("조합의 경우의 수(메모이제이션)")
     public void main() {
+        int answer1 = solution(5, 3);
+        assertEquals(10, answer1);
+        int answer2 = solution(33, 19);
+        assertEquals(818809200, answer2);
     }
 
 }
