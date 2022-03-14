@@ -3,6 +3,12 @@ package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 // 순열 구하기
 //
 // 10이하의 N개의 자연수가 주어지면 이 중 M개를 뽑아 일렬로 나열하는 방법을 모두 출력합니다.
@@ -23,9 +29,42 @@ import org.junit.jupiter.api.Test;
 // 9 6
 @SuppressWarnings("NewClassNamingConvention")
 public class Permutation {
+
+    private static final int[] NUMBERS = {3, 6, 9};
+    private static final int COUNT = 2;
+    private static final int[][] EXPECTED_ANSWER = {
+            {3, 6}, {3, 9},
+            {6, 3}, {6, 9},
+            {9, 3}, {9, 6}
+    };
+    private final List<int[]> answer = new ArrayList<>();
+    private final int[] checkArray = new int[NUMBERS.length];
+
+    public void solution(int level, int[] tempNumbers) {
+        if (COUNT == level) {
+            answer.add(tempNumbers.clone());
+        } else {
+            for (int i = 0; i < NUMBERS.length; i++) {
+                if (Objects.isNull(tempNumbers)) {
+                    tempNumbers = new int[COUNT];
+                }
+                if (checkArray[i] == 0) {
+                    checkArray[i] = 1;
+                    tempNumbers[level] = NUMBERS[i];
+                    solution(level + 1, tempNumbers);
+                    checkArray[i] = 0;
+                }
+            }
+        }
+    }
+
     @Test
     @DisplayName("순열 구하기")
     public void main() {
+        solution(0, null);
+        for (int i = 0; i < answer.size(); i++) {
+            assertArrayEquals(EXPECTED_ANSWER, answer.toArray());
+        }
     }
 
 }
