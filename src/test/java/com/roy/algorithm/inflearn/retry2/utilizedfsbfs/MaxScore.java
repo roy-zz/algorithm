@@ -3,6 +3,8 @@ package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // 최대점수 구하기(DFS)
 //
 // 이번 정보올림피아드대회에서 좋은 성적을 내기 위하여 현수는 선생님이 주신 N개의 문제를 풀려고 합니다.
@@ -26,9 +28,36 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class MaxScore {
 
+    private static final int[][] PROBLEMS = {
+            {10, 5},
+            {25, 12},
+            {15, 8},
+            {6, 3},
+            {7, 4}
+    };
+
+    private static final int TIME_LIMIT = 20;
+    private int answer = 0;
+
+    public void solution(int level, int sum, int time) {
+        if (time > TIME_LIMIT) {
+            return;
+        }
+        if (level == PROBLEMS.length) {
+            answer = Math.max(answer, sum);
+        } else {
+            solution(level + 1,
+                    sum + PROBLEMS[level][0],
+                    time + PROBLEMS[level][1]);
+            solution(level + 1, sum, time);
+        }
+    }
+
     @Test
-    @DisplayName("최대점수 구하기(DFS")
+    @DisplayName("최대점수 구하기(DFS)")
     public void main() {
+        solution(0, 0, 0);
+        assertEquals(41, answer);
     }
 
 }
