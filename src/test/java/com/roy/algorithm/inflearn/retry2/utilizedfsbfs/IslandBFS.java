@@ -1,7 +1,11 @@
 package com.roy.algorithm.inflearn.retry2.utilizedfsbfs;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 // 섬나라 아일랜드(BFS)
 //
@@ -34,9 +38,61 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NewClassNamingConvention")
 public class IslandBFS {
 
+    static class Point {
+        int x;
+        int y;
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    private static final int[][] MAP = {
+             {1, 1, 0, 0, 0, 1, 0},
+             {0, 1, 1, 0, 1, 1, 0},
+             {0, 1, 0, 0, 0, 0, 0},
+             {0, 0, 0, 1, 0, 1, 1},
+             {1, 1, 0, 1, 1, 0, 0},
+             {1, 0, 0, 0, 1, 0, 0},
+             {1, 0, 1, 0, 1, 0, 0}
+    };
+    private static final int[][] DIRECTIONS = {
+            {0, -1}, {0, 1}, {-1, 0}, {1, 0},
+            {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
+    };
+    private int answer = 0;
+
+    public void solution(int currentX, int currentY) {
+        Queue<Point> queueOfPoint = new LinkedList<>();
+        queueOfPoint.offer(new Point(currentX, currentY));
+        while (!queueOfPoint.isEmpty()) {
+            Point tempPoint = queueOfPoint.poll();
+            for (int[] direction : DIRECTIONS) {
+                int nextX = tempPoint.x + direction[0];
+                int nextY = tempPoint.y + direction[1];
+                if (nextX >= 0 && nextX < MAP.length
+                        && nextY >= 0 && nextY < MAP.length
+                        && MAP[nextX][nextY] == 1) {
+                    MAP[nextX][nextY] = 0;
+                    queueOfPoint.offer(new Point(nextX, nextY));
+                }
+            }
+        }
+    }
+
     @Test
     @DisplayName("섬나라 아일랜드(BFS)")
     public void main() {
+        for (int i = 0; i < MAP.length; i++) {
+            for (int j = 0; j < MAP.length; j++) {
+                if (MAP[i][j] == 1) {
+                    answer++;
+                    MAP[i][j] = 0;
+                    solution(i, j);
+                }
+            }
+        }
+        Assertions.assertEquals(5, answer);
     }
 
 }
