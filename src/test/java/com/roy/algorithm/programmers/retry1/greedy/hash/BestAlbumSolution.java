@@ -1,4 +1,4 @@
-package com.roy.algorithm.programmers.retry1.hash;
+package com.roy.algorithm.programmers.retry1.greedy.hash;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

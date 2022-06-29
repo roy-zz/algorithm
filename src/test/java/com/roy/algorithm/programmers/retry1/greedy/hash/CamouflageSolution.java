@@ -1,9 +1,10 @@
-package com.roy.algorithm.programmers.retry1.hash;
+package com.roy.algorithm.programmers.retry1.greedy.hash;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Set;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class CamouflageSolution {
 
