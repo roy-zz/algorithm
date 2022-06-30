@@ -36,20 +36,34 @@ public class TruckCrossingBridgeSolution {
     }
 
     private int solution(int bridgeLength, int weight, int[] truckWeights) {
-        Queue<Truck> queueOfTrucks = new LinkedList<>();
         Queue<Integer> queueOfTrucksOnBridge = new LinkedList<>();
-        for (int truckWeight : truckWeights) {
-            queueOfTrucks.add(new Truck(truckWeight));
-        }
-        return 0;
-    }
+        int weightSumOfOnBridge = 0;
+        int spentTimes = 0;
 
-    private static class Truck {
-        int weight;
-        int location;
-        public Truck(int weight) {
-            this.weight = weight;
-            this.location = 0;
+        for (int i = 0; i < truckWeights.length; i++) {
+            int truckWeight = truckWeights[i];
+            while(true) {
+                if (queueOfTrucksOnBridge.isEmpty()) {
+                    queueOfTrucksOnBridge.add(truckWeight);
+                    weightSumOfOnBridge += truckWeight;
+                    spentTimes++;
+                    break;
+                } else if (queueOfTrucksOnBridge.size() == bridgeLength) {
+                    weightSumOfOnBridge -= queueOfTrucksOnBridge.poll();
+                } else {
+                    if (weightSumOfOnBridge + truckWeight <= weight) {
+                        queueOfTrucksOnBridge.add(truckWeight);
+                        weightSumOfOnBridge += truckWeight;
+                        spentTimes++;
+                        break;
+                    } else {
+                        queueOfTrucksOnBridge.add(0);
+                        spentTimes++;
+                    }
+                }
+            }
         }
+
+        return spentTimes + bridgeLength;
     }
 }
